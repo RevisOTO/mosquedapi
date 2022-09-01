@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a>Api Text To Speech, escriba algo y descargue su archivo</a>
+    <br>
+    <button id="audio">Presione para el fetch (Fetch con async y await)</button>
+    <input id="texto" type="text" placeholder="">
+    <a href="" id="Voice" style="display:none ;"> Link de su linea de voz </a>
+    <br>
+    
+</body>
+
+</html>
+
+<script>
+    window.onload = function(){
+        document.getElementById("audio").addEventListener("click", async function(){
+            command = document.getElementById("texto").value
+            document.getElementById("Voice").style = "display:none ;"
+            if(command == null){
+                return
+            }
+            let dato = await getFetchVoice(command)
+        });
+
+        url2 = ""
+
+        async function getFetchVoice(command){
+            const options = {
+                method: 'POST',
+                headers: {
+                  Accept: 'application/json',
+                  'uberduck-id': 'anonymous',
+                  'Content-Type': 'application/json',
+                  Authorization: 'Basic cHViX2NhY2h4eXhpaWpwZnh1dWRlcDpwa180MjYxMDZjYy0xNWQ2LTQwNjctYTUyYi00YjgyOTEyOGU0NTU='
+                },
+                body: JSON.stringify({voice: 'fernanfloo', pace: 1, speech: command})
+              };
+              
+              let response = await fetch('https://api.uberduck.ai/speak', options)
+              
+              let response1 = await response.json()
+              console.log(response1)
+              
+              let respones2 = 'https://api.uberduck.ai/speak-status?uuid='+ response1.uuid
+              console.log(respones2)
+
+              url = await fetch(respones2)
+              download = await url.json()
+
+              while (download.path == null){
+                setTimeout(() => { console.log("Esperando..."); }, 5000);
+                url = await fetch(respones2)
+                download = await url.json()
+                console.log(download.path)
+              }
+              document.getElementById("Voice").href = download.path
+              document.getElementById("Voice").style = ""
+              document.getElementById("Voice").style = "display:flex ;"
+        }
+        
+    }
+</script>
