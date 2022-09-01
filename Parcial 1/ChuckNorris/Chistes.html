@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label for="Nombre">Nombre</label>
+    <input type="text" id="Nombre">
+
+    <label for="Apellido">Apellido</label>
+    <input type="text" id="Apellido">
+    <button id="button">Click aqui para chiste</button><br><br>
+
+    <textarea name="chuck" id="areatxt" cols="30" rows="10"></textarea>
+    
+    <script>
+        document.getElementById("button").addEventListener("click",async function() {
+            getFetch()
+        })
+
+        async function getFetch(){
+            nombre = document.getElementById("Nombre").value
+            apellido = document.getElementById("Apellido").value
+
+            let headersList = {
+            "Accept": "*/*",
+            "User-Agent": "Thunder Client (https://www.thunderclient.com)"
+           }
+           
+           let response = await fetch("http://api.icndb.com/jokes/random?firstName="+ nombre +"&lastName="+apellido, { 
+             method: "GET",
+             headers: headersList
+           });
+           
+           let data = await response.json();
+           
+           document.getElementById("areatxt").value = data.value.joke
+
+           console.log(data);
+        }
+    </script>
+</body>
+</html>
