@@ -1,0 +1,8 @@
+{
+    "Persona":{
+        "10":{"nombre":"Rafael","edad":"21"},
+        "20":{"nombre":"Rene","edad":"18"},
+        "30":{"nombre":"Fransisco","edad":"20"},
+        "40":{"nombre":"Carlos","edad":"27"}
+    }
+}
