@@ -3,6 +3,7 @@ const cors = require('cors')
 const morgan = require('morgan')
 const fs = require('fs')
 const path  = require('path')
+const cadena = require('./Cadena')
 
 const { json } = require('express')
 
@@ -40,9 +41,13 @@ app.post('/', function (req, res) {
 
 app.post('/texto',(req,res) => {
   console.log(req.body)
-  let may = req.body.toUpperCase()
-  let sinesp = req.body.trim()
-  let long = req.body.length
+  let may = cadena.Mayuscula(req.body)
+  let sinesp = cadena.SinEspacios(req.body)
+  let long = cadena.Longitud(req.body)
+
+  // let may = req.body.toUpperCase()
+  // let sinesp = req.body.trim()
+  // let long = req.body.length
 
   res.json({
     Mayuscula: may,
