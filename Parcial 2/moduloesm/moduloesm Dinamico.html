@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modulo ESM</title>
+</head>
+<body>
+    <label for="cadena">cadena</label>
+    <input id="cadena" type="text">
+    <button id="btnMay">Mayusculas</button>
+    <button id="btnSinEsp">Sin espacios</button>
+    <button id="btnLong">Longitud</button>
+
+    <br>
+    <label for="res">Resultado</label>
+    <input id="res" type="text">
+
+    <script type="module">
+        // import {Mayuscula,SinEspacios,Longitud} from './Cadena'
+        // import * as F from './Cadena.js'
+        document.getElementById("btnMay").addEventListener("click",function(){
+            import('./Cadena.js')
+            .then(function(F){
+                let cadena = document.getElementById("cadena").value
+            document.getElementById("res").value = F.Mayuscula(cadena)
+            })
+        })
+
+        document.getElementById("btnSinEsp").addEventListener("click", function(){
+            import('./Cadena.js')
+            .then(function(F){
+                let cadena = document.getElementById("cadena").value
+                document.getElementById("res").value = F.SinEspacios(cadena)
+            })
+        })
+
+        document.getElementById("btnLong").addEventListener("click", function(){
+            import('./Cadena.js')
+            .then(function(F){
+                let cadena = document.getElementById("cadena").value
+                document.getElementById("res").value = F.Longitud(cadena)
+            })
+        })
+    </script>
+</body>
+</html>
