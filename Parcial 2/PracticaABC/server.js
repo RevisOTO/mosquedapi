@@ -1,3 +1,4 @@
+const { response } = require("express");
 const xp = require("express")
 const pg = require("pg")
 
@@ -23,6 +24,7 @@ app.get('/',function(req,res) {
         console.log(response.rows)
         res.send(response.rows)
     })
+    pgClient.end()
 })
 
 app.listen(1234)
