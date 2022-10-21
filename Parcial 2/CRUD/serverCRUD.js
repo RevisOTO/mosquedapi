@@ -16,30 +16,39 @@ const app = xp()
 
 app.use(xp.json())
 app.use(xp.text())
+pgClient.connect()
 
 app.get('/',function(req,res) {
-    pgClient.connect()
-    pgClient.query('SELECT * FROM persona WHERE idpersona =' + req.body)
-    .then(response =>{
-        console.log(response.rows)
-        res.send(response.rows)
+    console.log(req.body)
+    if(req.body.text == undefined)
+    {
+        console.log("si entra")
+        pgClient.query('SELECT * FROM persona')
+        .then(response =>{
+            res.send(response.rows)
+        })
+    }
+    else{
+        pgClient.query('SELECT * FROM persona WHERE idpersona =' + req.body)
+        .then(response =>{
+            res.send(response.rows)
     })
+    }
+    
 })
 
 app.post('/',function(req,res){
     console.log(req.body)
     let nombre = req.body.nombre
     let apellido = req.body.apellido
-    pgClient.connect()
     pgClient.query(`INSERT INTO persona(nombre,apellido) VALUES('${nombre}','${apellido}')`)
     .then(response =>{
-        res.send(response)
+        res.send("Se registro los datos")
     })
 })
 
 app.delete('/',function(req,res){
     let idpersona = req.body.idpersona 
-    pgClient.connect()
     pgClient.query(`DELETE FROM persona WHERE idpersona = '${idpersona}'`)
     .then(response =>{
         res.send(`El registro con el id ${idpersona} se a eliminado`)
@@ -50,8 +59,7 @@ app.patch('/',function(req,res){
     let idpersona = req.body.idpersona
     nombre = req.body.nombre
     apellido = req.body.apellido
-    pgClient.connect()
-    pgClient.query('SELECT * FROM persona WHERE idpersona =' + req.body.idpersona)
+    pgClient.query(`SELECT * FROM persona WHERE idpersona = '${req.body.idpersona}'`)
     .then(response =>{
         nombre = response.rows.nombre
         apellido = response.rows.apellido
