@@ -1,6 +1,6 @@
-const { response } = require("express");
 const xp = require("express")
 const pg = require("pg")
+const cors = require("cors")
 
 const conString = {
     user: 'postgres',
@@ -14,13 +14,17 @@ var pgClient = new pg.Client(conString);
 
 const app = xp()
 
+app.use(cors({origin:"*"}))
+// app.use(cors({origin:"*"}))
+// app.use(cors({origin:"http://localhost/mosquedapi/Parcial%202/Gridjs/"}))
+
 app.use(xp.json())
 app.use(xp.text())
 pgClient.connect()
 
 app.get('/',function(req,res) {
-    console.log(req.body)
-    if(req.body.text == undefined)
+    console.log(req.body.idpersona)
+    if(req.body.idpersona == undefined)
     {
         console.log("si entra")
         pgClient.query('SELECT * FROM persona')
@@ -29,12 +33,11 @@ app.get('/',function(req,res) {
         })
     }
     else{
-        pgClient.query('SELECT * FROM persona WHERE idpersona =' + req.body)
+        pgClient.query('SELECT * FROM persona WHERE idpersona = '+ req.body.idpersona)
         .then(response =>{
             res.send(response.rows)
     })
     }
-    
 })
 
 app.post('/',function(req,res){

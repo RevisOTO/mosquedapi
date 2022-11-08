@@ -1,0 +1,16 @@
+personas:
+- nombre: rafael
+  apellidos: 'mosqueda barragan'
+  hobbies:
+    - jugar
+    - programar
+- nombre: rene
+  apellidos: 'salinas de los santos'
+  hobbies:
+    - comer
+    - jugar
+- nombre: 'luis otoniel'
+  apellidos: 'soto maldonado'
+  hobbies:
+    - escribir
+    - 'salir de fiesta'
