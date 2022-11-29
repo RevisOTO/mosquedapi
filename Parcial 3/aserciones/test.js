@@ -1,17 +1,14 @@
 let funciones = require('./funciones')
 let chai = require('chai')
 let should = chai.should()
-let expect = chai.expect()
-let assert = chai.assert()
+let expect = chai.expect
+let assert = chai.assert
 
-describe('Pruebas XD (Should)', () => {
+describe('Pruebas XD', () => {
     it('Esto regresa 8', () => {
         let resultado = funciones.potencia(2,3);
         resultado.should.be.a('number')
-        resultado.should.equal('number')
-    });
-    
-    
+    }); 
 });
 
 describe('Pruebas XD (Expect)', () => {
